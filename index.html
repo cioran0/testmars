@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>hue-rotate demo</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="./openseadragon.min.js"></script>
+    <style> 
+      h1 { 
+          color:green; 
+      } 
+      body { 
+          text-align:center; 
+      } 
+      .sep{ 
+          filter: sepia(0%);
+          float: left;
+      } 
+      .huer{
+          filter:hue-rotate(0deg);   
+      }
+      .otherF{
+          filter:saturate(100%); 
+          filter:contrast(100%);
+          filter:brightness(100%);
+      }   
+      .toggle-switch {
+        background: #ccc;
+        width: 80px;
+        height: 30px;
+        overflow: hidden;
+        border-radius: 3px;
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 10px;
+        cursor: pointer;
+      }
+      
+      .toggle-switch:after {
+        content: " ";
+        display: block;
+        width: 40px;
+        height: 30px;
+        background-color: #3498DB;
+        border: 3px solid #fff;
+        border-top: 0;
+        border-bottom: 0;
+        margin-left: -3px;
+        transition: all 0.1s ease-in-out;
+      }
+      
+      .active .toggle-switch:after {
+        margin-left: 40px;
+      }
+      
+      .toggle-label {
+        display: inline-block;
+        line-height: 30px;
+        color: grey; /* default color for toggle-label */
+      }
+      
+      .active .toggle-label {
+        color: #3498DB;
+      }
+  </style> 
+  </head>
+  <body>
+  <div class = "container">
+    <div class="row">
+      <div class = "col">
+    <div class = "otherF" id = "otherF">
+    <div class = "huer" id = "huer">
+    <div class="sep" id= "sep" style= "filter:sepia(0%)" alt="mars"> 
+    <div id="openseadragon1" style="width: 878px; height: 529px;">
+      <script type="text/javascript">
+        window.onload = function initOSD() {
+        var viewer = new OpenSeadragon({
+          id: "openseadragon1",
+          tileSources: {
+          type: 'image',
+          url:  './mars_bw.png',
+          buildPyramid: false,
+          preserveViewport: true,
+          showNavigator: true
+      }
+  });}</script>
+    </div>
+    <!--<script src="index.js"></script>-->
+  </div>
+  </div>
+  </div>
+</div>
+  <!-- Button for TOGGLE GRAYSCALE-->
+  <div class = "col">
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const toggleSwitch = document.querySelector('.toggle-switch');
+
+    function toggleHandler(event) {
+      event.preventDefault();
+      event.currentTarget.parentElement.classList.toggle('active');
+      console.log("SWITCHED");
+      if(document.getElementById("sep").style.filter == "sepia(0%)")
+        {
+          console.log("SWITCH IN IF");
+          document.getElementById("sep").style.filter = "sepia(100%)";
+          document.getElementById("otherF").style.filter = "saturate(350%) contrast(20%) brightness(110%)";
+          document.getElementById("huer").style.filter = "hue-rotate(-10deg)";
+        }
+      else{
+          document.getElementById("sep").style.filter = "sepia(0%)";
+          document.getElementById("otherF").style.filter = "saturate(100%) contrast(100%) brightness(100%)";
+          document.getElementById("huer").style.filter = "hue-rotate(0deg)";
+        }
+    }
+
+    toggleSwitch.addEventListener('click', toggleHandler);
+
+    });
+    </script>
+    <div class="toggle">
+      <div class="toggle-label">Original</div>
+      <div class="toggle-switch"></div>
+      <div class="toggle-label active">Colorized</div>
+    </div>
+  </div>
+<!--END TOGGLE GRAYSCALE BUTTON-->
+</div>
+<div class = "col">
+  <div class="pull-left"><img class="sep" src="mars_palette.png" alt="mars" ></div> 
+</div>
+</div>  
+</body>
+</html>
+
