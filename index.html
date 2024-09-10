@@ -66,6 +66,7 @@
         color: #3498DB;
       }
   </style> 
+  <script src="https://cdn.jsdelivr.net/gh/usnistgov/openseadragonscalebar@1.0.0/openseadragon-scalebar.js"></script>
   </head>
   <body>
   <div class = "container">
@@ -74,19 +75,34 @@
     <div class = "otherF" id = "otherF">
     <div class = "huer" id = "huer">
     <div class="sep" id= "sep" style= "filter:sepia(0%)" alt="mars"> 
-    <div id="openseadragon1" style="width: 878px; height: 529px;">
+    <div id="openseadragon1" style="width: 800px; height: 400px;">
       <script type="text/javascript">
         window.onload = function initOSD() {
         var viewer = new OpenSeadragon({
           id: "openseadragon1",
           tileSources: {
           type: 'image',
-          url:  './mars_bw.png',
+          url:  './25-08_crop_500uM.png',
           buildPyramid: false,
           preserveViewport: true,
           showNavigator: true
-      }
-  });}</script>
+          }
+        });
+        viewer.scalebar({
+                      type: OpenSeadragon.ScalebarType.MICROSCOPY,
+                      xOffset: 0,
+                      yOffset: 10,
+                      stayInsideImage: false,
+                      barThickness: 3,
+                      //minWidth: 1,
+                      pixelsPerMeter: 4200000});
+                      //ppm = width in pixels image / irl width in meters specimen),
+                      //here it's 2100 / .0005 = 4,200,000ppm
+                      //unitType: length
+                      // 500 uM micrometers is  0.0005m or 4,200,000ppm
+                      //pixelsPerMeter: 1e5 / jScale  });
+              console.log("JSCALE AFTER prime call", jScale)
+  }</script>
     </div>
     <!--<script src="index.js"></script>-->
   </div>
@@ -131,8 +147,9 @@
 <!--END TOGGLE GRAYSCALE BUTTON-->
 </div>
 <div class = "col">
-  <div class="pull-left"><img class="sep" src="mars_palette.png" alt="mars" ></div> 
-</div>
+  <div class = "row">
+  <div id = "noDragon" style="width: 800px; height: 400px;">
+</div></div></div>
 </div>  
 </body>
 </html>
